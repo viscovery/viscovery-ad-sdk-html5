@@ -7,7 +7,6 @@ Viscovery aims to help our video publishers to monetize their video content with
 
 ## Resources
 
-+ [Demo](https://vsp.viscovery.com/visSDK/)
 + [SDK static files](https://vsp.viscovery.com/visSDK/lib/js/)
 
 
