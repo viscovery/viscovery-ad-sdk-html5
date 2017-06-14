@@ -5,6 +5,14 @@ Document of Viscovery Ad sdk
 
 Viscovery aims to help our video publishers to monetize their video content with content-relative ads. The whole adTech includes the integration of Viscovery's FITAMOS computer vision recognition technology.
 
+## Resources
+
++ [Demo](https://vsp.viscovery.com/visSDK/)
++ [SDK static files](https://vsp.viscovery.com/visSDK/lib/js/)
+
+
+
+
 ## Prerequisites
 
 Before you begin, setup the following files
@@ -135,6 +143,11 @@ viscoveryAd.init('#content-player', '#adContainer', ...)
     <td>Y</td>
   </tr>
   <tr>
+    <td>video_id</td>
+    <td>the video unique id (confirmed with the contract publishers)</td>
+    <td>optional</td>
+  </tr>
+  <tr>
     <td>debug_mode</td>
     <td>switch of debug mode</td>
     <td>Y</td>
@@ -163,7 +176,7 @@ for player integration parameter, bind the current using player interface
   window.onload = function() {
     viscoveryAd.init('#content-player', '#adContainer', {
       api_key: '<api_key>', // the applied api key of viscoveryAd
-      video_id: 'https://video.site.url/<video_id>', // video encode content url
+      video_url: 'https://video.site.url/<video_id>', // video encode content url
       debug_mode: 0, // 1 for open, 0 for close
       playerControl: {
       }
