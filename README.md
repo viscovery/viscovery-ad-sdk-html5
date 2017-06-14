@@ -34,7 +34,7 @@ The IMA SDK and ViscoverySDK need to be import to your html file
 
 ```html
 <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-<script type="text/javascript" async src="https://vsp.vsicovery.com/visSDK/lib/js/visSDK.{version_number}.js"></script>
+<script type="text/javascript" async src="https://vsp.viscovery.com/visSDK/lib/js/visSDK.{version_number}.js"></script>
 ```
 
 ### Dom position structure of player and adContainer
@@ -53,7 +53,7 @@ Below is the sample html/css layout, shown the integration of your H5 video tag 
   <link type="image/png" rel="shortcut icon" href="./static/favicon.ico" />
   <link type="text/css" rel="stylesheet" href="./static/style.css" />
   <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-  <script type="text/javascript" src="https://vsp.vsicovery.com/visSDK/lib/js/visSDK.{version_number}.js"></script>
+  <script type="text/javascript" src="https://vsp.viscovery.com/visSDK/lib/js/visSDK.{version_number}.js"></script>
 </head>
 <body>
   <div id="container">
