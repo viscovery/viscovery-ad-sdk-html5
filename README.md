@@ -124,7 +124,7 @@ Besides turning `mobileFullscreenHacking` into `true`, developer should add `pla
 - dailymotion
 
 ## Support Inventory size
-- PC instrem linear
+- PC instream linear
 - PC instream non-linear
 - PC outstream non-linear
 - Mobile instream linear
