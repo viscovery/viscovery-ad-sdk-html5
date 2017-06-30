@@ -1,235 +1,132 @@
 # Viscovery-html5-ad-sdk
-Document of Viscovery Ad sdk
+Document of Viscovery AD SDK
 
 ## Intro
 
 Viscovery aims to help our video publishers to monetize their video content with content-relative ads. The whole adTech includes the integration of Viscovery's FITAMOS computer vision recognition technology.
 
 ## Resources
+* [SDK static files](https://vsp.viscovery.com/visSDK/lib/js)
+* [demo](https://vsp.viscovery.com/visSDK)
 
-+ [SDK static files](https://vsp.viscovery.com/visSDK/lib/js/)
-
-
-
-
-## Prerequisites
-
-Before you begin, setup the following files
-
-+ index.html
-+ style.css
-
-Setup a basic server to host your file
-
-+ If you have python, you can run python -m SimpleHTTPServer in the directory containing index.html and point your browser to localhost:8000
-
-+ You can also use gulp or webpack to serve the static files
-
-## Get Start
+## Get Started
 
 ### Import
 
-The IMA SDK and ViscoverySDK need to be import to your html file
+ViscoverySDK need to be import to your html file
 
 ```html
-<script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-<script type="text/javascript" async src="https://vsp.viscovery.com/visSDK/lib/js/visSDK.{version_number}.js"></script>
+<script type="text/javascript" src="{host}/visSDK.2.0.js"></script>
 ```
 
-### Dom position structure of player and adContainer
+### HTML Structure
 
-Below is the sample html/css layout, shown the integration of your H5 video tag player and Viscovery Ad SDK
+Developer must fulfill following requests
 
-<b>index.html</b>
+* have a video player
+* have an ad-container for displaying instream-ad
+* have a outstream container for displaying outstream-ad
+* make sure that ancestor of ad-container align with top-left of video player
+* make sure that growing-width and growing-height of outstream container is what you expect
+
+### HTML Structure Suggestion
+
+#### HTML
 ```html
-<html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-  <title>Viscovery Demo Page</title>
-  <meta name="description" content="Viscovery 成立於2013年，專注於影音辨識技術開發，擁有多項演算法專利，被 Google 評選為成功企業與創新科技公司。經過多年圖像辨識技術研發的積累，及實地操作大量應用場景的基礎上，Viscovery 成功開發出 VDS 智能影音探索平台。" />
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link type="image/png" rel="shortcut icon" href="./static/favicon.ico" />
-  <link type="text/css" rel="stylesheet" href="./static/style.css" />
-  <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-  <script type="text/javascript" src="https://vsp.viscovery.com/visSDK/lib/js/visSDK.{version_number}.js"></script>
-</head>
-<body>
-  <div id="container">
-    <div id="content">
-      <video id="content-player" class="player-layout" preload="metadata" width="854" height="480" playsinline controls>
-        <source src="http://viscovery-vsp-dev.s3.amazonaws.com/sdkdemo/Videos/sillicon%20valley%20S1%20trailer.mp4"></source>
-      </video>
-    </div>
-    <div id="adContainer"></div>
+<div id="container">
+  <div id="content">
+    <video id="content-player" class="player-layout" preload="metadata" width="854" height="480" playsinline controls>
+      <source src="https://your.video.path"></source>
+    </video>
   </div>
-  <div class="wording">
-    <p>news content for outstream expanding testing : news content for outstream expanding testing</p>
-    <p>news content for outstream expanding testing : news content for outstream expanding testing</p>
-    <p>news content for outstream expanding testing : news content for outstream expanding testing</p>
-    <p>news content for outstream expanding testing : news content for outstream expanding testing</p>
-  </div>
-</body>
+  <div id="adContainer"></div>
+  <div id="outstream"></div>
+</div>
 ```
 
-<b>style.css</b>
+\*playsinline: you can refer **Mobile Fullscreen Hacking** section to understand why you should add `playsinline` attribute.
+
+#### Style
 ```css
-* {
-  padding: 0;
-  margin: 0;
-  border: 0;
-}
-
 #container {
   position: relative;
-  width: 854px;
-  height: 480px;
 }
 
-#content, #adContainer {
+#adContainer {
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 854px;
-  height: 480px;
-  z-index: 0;
-}
-
-#content-player {
-  width: 854px;
-  height: 480px;
-  overflow: hidden;
 }
 ```
 
-### SDK initialize
-
-Intialize the SDK with the video domNode and adContainer domNode after the html body tag
-
-```javascript
-viscoveryAd.init(Argument1, Argument2, Argument3)
-```
-
-<b>Argument1</b> is the html vidoe tag player. Here select it through #content-player and indicates it to <b>Argument1</b>.
-
-```javascript
-viscoveryAd.init('#content-player', ...)
-```
-
-<b>Argument2</b> is the html adContainer div. Here select it through #adContainer and indicates it to <b>Argument2</b>.
-
-```javascript
-viscoveryAd.init('#content-player', '#adContainer', ...)
-```
-
-<b>Argument3</b> is an object which required the unique parameter for the publisher
-
-
-<table>
-  <tr>
-    <td>key</td>
-    <td>description</td>
-    <td>required</td>
-  </tr>
-  <tr>
-    <td>api_key</td>
-    <td>the applied api key for the currentr publisher</td>
-    <td>Y</td>
-  </tr>
-  <tr>
-    <td>video_url</td>
-    <td>the video content source url</td>
-    <td>Y</td>
-  </tr>
-  <tr>
-    <td>video_id</td>
-    <td>the video unique id (confirmed with the contract publishers)</td>
-    <td>optional</td>
-  </tr>
-  <tr>
-    <td>debug_mode</td>
-    <td>switch of debug mode</td>
-    <td>Y</td>
-  </tr>
-   <tr>
-    <td>playerControl</td>
-    <td>the video content source url</td>
-    <td>Y</td>
-  </tr>
-</table>
-
-
-#### playerControl parameter 
-
-for player integration parameter, bind the current using player interface
-
- - play: *(function)* player play method
- - pause: *(function)* player pause method
- - isSeeking: *(boolean)* player is on seeking method
- - currentTime: *(Number)* play current playback time value
- - isPaused: *(boolean)* player is paused status
-
-### whole SDK init sample
+### Initialize SDK
 ```html 
 <script type="text/javascript">
-  window.onload = function() {
-    viscoveryAd.init('#content-player', '#adContainer', {
-      api_key: '<api_key>', // the applied api key of viscoveryAd
-      video_url: 'https://video.site.url/<video_id>', // video encode content url
-      debug_mode: 0, // 1 for open, 0 for close
+  window.onload = function () {
+    viscoveryAd.init({
+      contentPlayer: '#content-player',
+      adContainer: '#adContainer',
+      outStreamContainer: '#outstream',
+      apiKey: 'your-api-key', 
+      videoUrl: "https://your.video.path",
+      videoId: 'video-id',
       playerControl: {
-      }
+        // play: '',
+        // pause: '',
+        // getSeeking: '',
+        // getCurrentTime: '',
+        // getPaused: '',
+      },
+      bottomOffset: 30,
+      mobileFullscreenHacking: true,
     });
   }
 </script>
 ```
 
-## Extension
+## API Reference
+### `init(args)`
 
-### DailyMotion initialize
+initialize Viscovery AD SDK
 
-for dailyMotion initialize sample, do as the follow
+#### Arguments
+* `contentPlayer` (*string*): css selectors of content player
+* `adContainer` (*string*): css selectors of instream ad container
+* `outStreamContainer` (*string*): css selectors of outstream ad container
+* `api_key` (*string*): api key
+* `video_url` (*string*): content video url\*1
+* `video_id` (*string*): content video id\*1
+* `[bottomOffset]` (*number*) **default 35**: nonlinear instream ads offset from bottom providing you to avoid overlay on player control bar
+* `[mobileFullscreenHacking]` (*boolean*) **default true**: determine if you allow Viscovery Ad SDK replace your mobile native screen with our definition
+* `playerControl` \*2
+* `playerControl.play` (*function*): play function for content player
+* `playerControl.pause` (*function*): pause function for content player
+* `playerControl.getSeeking` (*function*): seeking getter of content player 
+* `playerControl.getCurrentTime` (*function*): current time getter of content player
+* `playerControl.getPaused` (*function*): paused state of content player
 
-<b>body player part</b>
-```html
-<div id="container">
-  <div id="content">
-    <div id="player"></div>
-  </div>
-  <div id="adContainer"></div>
-</div>
-```
+\*1 You can only give video url or video id. You will not get right ads if you give them both but they don't match.
 
-<b>player and sdk init part</b>
-```javascript
-    var player = DM.player(document.getElementById("player"), {
-      video: '<dailymotion video id>',
-      width: '<video width>',
-      height: '<video height>',
-      params: {
-        autoplay: false,
-        mute: false,
-        controls: true,
-      }
-    });
+\*2 if `play`, `pause`, `seeking`, `currentTime` or `paused` of your player don't match native html5 video player property name, you should give SDK these by yourself.
 
-    window.onload = function() {
-      document.querySelector('#adContainer').style['z-index'] = '-1';
-      /* init viscoveryAd sdk after dailymotion preroll ad done */
-      player.addEventListener('video_start', function(event) {
-        document.querySelector('#adContainer').style['z-index'] = '0';
+## Mobile Fullscreen Hacking
 
-        viscoveryAd.init('#player', '#adContainer', {
-          api_key: '<api_key>', // <api_key> : the applied api key of viscoveryAd
-          video_url: "https://video.site.url/<video_id>", // <video_url> : video encoded content url
-          debug_mode: 0, // 1 for open, 0 for close
-          playerControl: {
-            currentTime: player.currentTime,
-          }
-        });
-      });
-  }
-```
+Due to limitation of mobile browser, Viscovery Ad SDK could not implement ad displaying on mobile browser. However, if `mobileFullscreenHacking` is `true`, Viscovery Ad SDK will achieve the fullscreen mode by implementing following specs.
 
+* Content player is always in-line mode in **portrait**.
+* Content player is always fullscreen mode in **landscape**.
 
+Besides turning `mobileFullscreenHacking` into `true`, developer should add `playsinline` attribute to video tag.
 
+## Support player
+- html video tag
+- videojs
+- dailymotion
+
+## Support Inventory size
+- PC instrem linear
+- PC instream non-linear
+- PC outstream non-linear
+- Mobile instream linear
+- Mobile instream non-linear
+- Mobile outstream non-linear
