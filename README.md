@@ -26,7 +26,7 @@ Developer must fulfill following requests
 * have a video player
 * have an ad-container for displaying instream-ad
 * have a outstream container for displaying outstream-ad
-* make sure that ancestor of ad-container align with top-left of video player
+* make sure that ancestor of ad-container align with top-left of video player
 * make sure that growing-width and growing-height of outstream container is what you expect
 
 ### HTML Structure Suggestion
@@ -111,7 +111,7 @@ initialize Viscovery AD SDK
 
 ## Mobile Fullscreen Hacking
 
-Due to limitation of mobile browser, Viscovery Ad SDK could not implement ad displaying on mobile browser. However, if `mobileFullscreenHacking` is `true`, Viscovery Ad SDK will achieve the fullscreen mode by implementing following specs.
+Due to limitation of mobile browser, Viscovery Ad SDK could not implement ad displaying on mobile browser. However, if `mobileFullscreenHacking` is `true`, Viscovery Ad SDK will achieve the fullscreen mode by implementing following specs.
 
 * Content player is always in-line mode in **portrait**.
 * Content player is always fullscreen mode in **landscape**.
